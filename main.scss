@@ -1,0 +1,14 @@
+// Enable compass
+@import 'compass';
+
+// Framework
+@import 'vendor/bootstrap/_bootstrap';
+
+// variables, fonts, mixins, helpers... common styles used across the entire site
+@import 'base/__base';
+
+// reusable components
+@import 'components/__components';
+
+// declarations specific to the project, organized according to the items/sections represented
+@import 'specifics/__specifics';

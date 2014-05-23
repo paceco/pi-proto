@@ -1,0 +1,4 @@
+// Exports IE8 only sheet as if it is 992px wide (medium-screen)
+$old-ie: true;
+$fix-mqs: 992px;
+@import 'all';
