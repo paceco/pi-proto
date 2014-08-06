@@ -1,8 +1,8 @@
-// Enable compass
+// enable compass
 @import 'compass';
 
-// Framework
-@import 'vendor/bootstrap/_bootstrap';
+// framework (Bootstrap 3.2.0)
+@import 'bootstrap/__bootstrap';
 
 // variables, fonts, mixins, helpers... common styles used across the entire site
 @import 'base/__base';
