@@ -12,22 +12,23 @@ Install gulp (assuming you have node installed):
 
 Install gulp into the project, and all it's dependencies:
 
-    npm install gulp-ruby-sass --save-dev
+    npm install --save-dev browserify vinyl-source-stream gulp-ruby-sass gulp-uglify gulp
 
 Then run grunt as normal:
 
-    grunt watch
+    grunt [task name here]
 
 ### Current Tasks:
 
 - sass (compiles sass)
-- watch (watches sass/\*.scss for changes, then compiles sass)
+- watch (watches src/js/\*js and src/scss/\*scss for changes and then builds
+- uglify (compress js)
+- build (WIP - runs all tasks async, this is a problem for js - needs reworked )
 
 ### To Do:
 
-- js concat
-- js minification
-- build process
+- build process fix
+- polish install process
 
     
 
