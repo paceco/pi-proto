@@ -1,13 +1,33 @@
-# PI Boot
+# PI Boot + Gulp
 
-A SASS + Bootstrap framework for common use. Currently under development.
+Test build using Gulp as a front-end layer.
 
-Remaining TODOS:
+Currently only compiles SASS.
 
-- Build JS asset flow to concatenate scripts (remove bootstrap-all.js and bundle scripts as modules)
-- Develop shared components for features not covered in Bootstrap
-- Concatenate bootstrap mixins (seems a waste to be that modular)
-- ???
-- PROFIT
+### To install:
 
-A discussion aid for: [http://paceco.github.io](http://paceco.github.io)
+Install gulp (assuming you have node installed):
+
+    npm install --global gulp
+
+Install gulp into the project, and all it's dependencies:
+
+    npm install gulp-ruby-sass --save-dev
+
+Then run grunt as normal:
+
+    grunt watch
+
+### Current Tasks:
+
+- sass (compiles sass)
+- watch (watches sass/\*.scss for changes, then compiles sass)
+
+### To Do:
+
+- js concat
+- js minification
+- build process
+
+    
+
