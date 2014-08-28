@@ -12,7 +12,7 @@ Install gulp (assuming you have node installed):
 
 Install gulp into the project, and all it's dependencies:
 
-    npm install --save-dev browserify vinyl-source-stream gulp-ruby-sass gulp-uglify gulp
+    npm install --save-dev gulp-ruby-sass gulp-concat gulp-uglify gulp
 
 Then run grunt as normal:
 
