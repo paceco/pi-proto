@@ -3,6 +3,7 @@
     "gulp-concat": "^2.3.4",
     "gulp-ruby-sass": "^0.7.1",
     "gulp": "^3.8.7",
-    "gulp-uglify": "^0.3.2"
+    "gulp-uglify": "^0.3.2",
+    "gulp-autoprefixer": "0.0.9"
   }
 }

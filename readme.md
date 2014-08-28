@@ -2,33 +2,29 @@
 
 Test build using Gulp as a front-end layer.
 
-Currently only compiles SASS.
-
 ### To install:
 
-Install gulp (assuming you have node installed):
+Install gulp (assuming you have node, but not gulp):
 
     npm install --global gulp
 
-Install gulp into the project, and all it's dependencies:
+Install gulp into the project, and all it's dependencies (pulls from package.json):
 
-    npm install --save-dev gulp-ruby-sass gulp-concat gulp-uglify gulp
+    npm install
 
-Then run grunt as normal:
+Then run gulp as normal:
 
-    grunt [task name here]
+    gulp [task name here]
 
 ### Current Tasks:
 
-- sass (compiles sass)
+- sass (compiles sass and autoprefixes for browser support)
+- concat (concatenates js)
 - watch (watches src/js/\*js and src/scss/\*scss for changes and then builds
 - uglify (compress js)
-- build (WIP - runs all tasks async, this is a problem for js - needs reworked )
+- build
 
 ### To Do:
 
 - build process fix
-- polish install process
-
-    
-
+- other front-end tools?

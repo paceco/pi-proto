@@ -1,18 +1,23 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-ruby-sass');
+var autoprefix = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
 
+// Compiles sass and autoprefixes
 gulp.task('sass', function () {
 	return gulp.src('src/sass/main.scss')
 	.pipe(sass({
-		style: 'compressed',
+		style: 'expanded',
 		sourcemap: true,
 		sourcemapPath: '..src/sass'
 	}))
+	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
+	.pipe(autoprefix())
 	.pipe(gulp.dest('build/css'));
 });
 
+// Concatenates all js
 gulp.task('concat', function(){
 	gulp.src([
 		// Load bootstrap js in order
@@ -37,21 +42,24 @@ gulp.task('concat', function(){
 	.pipe(gulp.dest('./build/js/'));
 });
 
+// Minify js
 gulp.task('uglify', function(){
 	gulp.src('build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
 });
 
+// Compiles sass and js, then minifies all js
 gulp.task('build', ['concat','sass'], function(){
 	gulp.src('build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
 });
 
+// Watch for changes, recompile sass and js
 gulp.task('watch', function(){
-	gulp.watch('src/sass/*.scss', ['sass']);
-	gulp.watch('src/js/*.js', ['browserify']);
+	gulp.watch('src/sass/**/*.scss', ['sass']);
+	gulp.watch('src/js/**/*.js', ['concat']);
 });
 
 
