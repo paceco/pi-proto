@@ -49,8 +49,15 @@ gulp.task('uglify', function(){
 	.pipe(gulp.dest('build/js'));
 });
 
+// Minify vendor scripts, but don't concatenate
+gulp.task('vendor', function(){
+	gulp.src('src/js/vendor/*.js')
+	.pipe(uglify())
+	.pipe(gulp.dest('build/js/vendor'));
+});
+
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass'], function(){
+gulp.task('build', ['concat','sass', 'vendor'], function(){
 	gulp.src('build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
@@ -60,6 +67,5 @@ gulp.task('build', ['concat','sass'], function(){
 gulp.task('watch', function(){
 	gulp.watch('src/sass/**/*.scss', ['sass']);
 	gulp.watch('src/js/**/*.js', ['concat']);
+	gulp.watch('src/js/**/*.js', ['vendor']);
 });
-
-
