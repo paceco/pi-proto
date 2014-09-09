@@ -6,7 +6,7 @@ var uglify = require('gulp-uglify');
 
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
-	return gulp.src('src/sass/main.scss')
+	return gulp.src('assets/src/sass/main.scss')
 	.pipe(sass({
 		style: 'expanded',
 		sourcemap: true,
@@ -14,58 +14,58 @@ gulp.task('sass', function () {
 	}))
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
-	.pipe(gulp.dest('build/css'));
+	.pipe(gulp.dest('assets/build/css'));
 });
 
 // Concatenates all js
 gulp.task('concat', function(){
 	gulp.src([
 		// Load bootstrap js in order
-		'./src/js/plugins/bootstrap/transition.js',
-		'./src/js/plugins/bootstrap/alert.js',
-		'./src/js/plugins/bootstrap/button.js',
-		'./src/js/plugins/bootstrap/carousel.js',
-		'./src/js/plugins/bootstrap/collapse.js',
-		'./src/js/plugins/bootstrap/dropdown.js',
-		'./src/js/plugins/bootstrap/modal.js',
-		'./src/js/plugins/bootstrap/tooltip.js',
-		'./src/js/plugins/bootstrap/popover.js',
-		'./src/js/plugins/bootstrap/scrollspy.js',
-		'./src/js/plugins/bootstrap/tab.js',
-		'./src/js/plugins/bootstrap/affix.js',
+		'./assets/src/js/plugins/bootstrap/transition.js',
+		'./assets/src/js/plugins/bootstrap/alert.js',
+		'./assets/src/js/plugins/bootstrap/button.js',
+		'./assets/src/js/plugins/bootstrap/carousel.js',
+		'./assets/src/js/plugins/bootstrap/collapse.js',
+		'./assets/src/js/plugins/bootstrap/dropdown.js',
+		'./assets/src/js/plugins/bootstrap/modal.js',
+		'./assets/src/js/plugins/bootstrap/tooltip.js',
+		'./assets/src/js/plugins/bootstrap/popover.js',
+		'./assets/src/js/plugins/bootstrap/scrollspy.js',
+		'./assets/src/js/plugins/bootstrap/tab.js',
+		'./assets/src/js/plugins/bootstrap/affix.js',
 		// Any other plugins?
-		'./src/js/plugins/*.js',
+		'./assets/src/js/plugins/*.js',
 		// Load custom js
-		'./src/js/main.js'
+		'./assets/src/js/main.js'
 	])
 	.pipe(concat('all.js'))
-	.pipe(gulp.dest('./build/js/'));
+	.pipe(gulp.dest('./assets/build/js/'));
 });
 
 // Minify js
 gulp.task('uglify', function(){
-	gulp.src('build/js/*.js')
+	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('build/js'));
+	.pipe(gulp.dest('assets/build/js'));
 });
 
 // Minify vendor scripts, but don't concatenate
 gulp.task('vendor', function(){
-	gulp.src('src/js/vendor/*.js')
+	gulp.src('assets/src/js/vendor/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('build/js/vendor'));
+	.pipe(gulp.dest('assets/build/js/vendor'));
 });
 
 // Compiles sass and js, then minifies all js
 gulp.task('build', ['concat','sass', 'vendor'], function(){
-	gulp.src('build/js/*.js')
+	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('build/js'));
+	.pipe(gulp.dest('assets/build/js'));
 });
 
 // Watch for changes, recompile sass and js
 gulp.task('watch', function(){
-	gulp.watch('src/sass/**/*.scss', ['sass']);
-	gulp.watch('src/js/**/*.js', ['concat']);
-	gulp.watch('src/js/**/*.js', ['vendor']);
+	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
+	gulp.watch('assets/src/js/**/*.js', ['concat']);
+	gulp.watch('assets/src/js/**/*.js', ['vendor']);
 });
