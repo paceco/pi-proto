@@ -1,6 +1,6 @@
 # PI Boot + Gulp
 
-Test build using Gulp as a front-end layer.
+Front-end framework using Gulp to tie everything together.
 
 ### To install:
 
@@ -12,6 +12,10 @@ Install gulp into the project, and all it's dependencies (pulls from package.jso
 
     npm install
 
+Install ruby dependencies (requires bundler gem):
+
+    bundle install
+
 Then run gulp as normal:
 
     gulp [task name here]
@@ -22,9 +26,5 @@ Then run gulp as normal:
 - concat (concatenates js)
 - watch (watches src/js/\*js and src/scss/\*scss for changes and then builds
 - uglify (compress js)
+- images (optimizes images)
 - build
-
-### To Do:
-
-- build process fix
-- other front-end tools?
