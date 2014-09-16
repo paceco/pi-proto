@@ -3,15 +3,18 @@ var concat = require('gulp-concat');
 var sass = require('gulp-ruby-sass');
 var autoprefix = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
+var notify = require("gulp-notify");
 
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
 	return gulp.src('assets/src/sass/main.scss')
 	.pipe(sass({
 		style: 'expanded',
-		sourcemap: true,
+		// sourcemap: true,
 		sourcemapPath: '..src/sass'
 	}))
+	// Prevent sass from stopping on errors
+	.on('error', handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
 	.pipe(gulp.dest('assets/build/css'));
@@ -69,3 +72,17 @@ gulp.task('watch', function(){
 	gulp.watch('assets/src/js/**/*.js', ['concat']);
 	gulp.watch('assets/src/js/**/*.js', ['vendor']);
 });
+
+// Error function
+function handleErrors(){
+  var args = Array.prototype.slice.call(arguments);
+
+  // Send error to notification center with gulp-notify
+  notify.onError({
+    title: "Compile Error",
+    message: "<%= error.message %>"
+  }).apply(this, args);
+
+  // Keep gulp from hanging on this task
+  this.emit('end');
+}
