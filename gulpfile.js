@@ -1,9 +1,11 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-ruby-sass');
+var gulp       = require('gulp');
+var concat     = require('gulp-concat');
+var sass       = require('gulp-ruby-sass');
 var autoprefix = require('gulp-autoprefixer');
-var uglify = require('gulp-uglify');
-var notify = require("gulp-notify");
+var uglify     = require('gulp-uglify');
+var notify     = require("gulp-notify");
+var changed    = require('gulp-changed');
+var imagemin   = require('gulp-imagemin');
 
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
@@ -52,15 +54,18 @@ gulp.task('uglify', function(){
 	.pipe(gulp.dest('assets/build/js'));
 });
 
-// Minify vendor scripts, but don't concatenate
-gulp.task('vendor', function(){
-	gulp.src('assets/src/js/vendor/*.js')
-	.pipe(uglify())
-	.pipe(gulp.dest('assets/build/js/vendor'));
+// Optimize images
+gulp.task('images', function() {
+  var dest = './assets/build/img';
+
+  return gulp.src('./assets/src/img/**')
+    .pipe(changed(dest)) // Ignore unchanged files
+    .pipe(imagemin()) // Optimize
+    .pipe(gulp.dest(dest));
 });
 
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass', 'vendor'], function(){
+gulp.task('build', ['concat','sass', 'images'], function(){
 	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('assets/build/js'));

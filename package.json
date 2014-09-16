@@ -5,6 +5,8 @@
     "gulp": "^3.8.7",
     "gulp-uglify": "^0.3.2",
     "gulp-autoprefixer": "0.0.9",
-    "gulp-notify": "^1.6.0"
+    "gulp-notify": "^1.6.0",
+    "gulp-changed": "^1.0.0",
+    "gulp-imagemin": "^1.0.1"
   }
 }
