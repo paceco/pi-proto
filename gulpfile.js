@@ -3,80 +3,107 @@ var concat     = require('gulp-concat');
 var sass       = require('gulp-ruby-sass');
 var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
-var notify     = require("gulp-notify");
+var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
-var imagemin   = require('gulp-imagemin');
+
+// for prototyping
+var fileinclude = require('gulp-file-include');
+var webserver = require('gulp-webserver');
+var livereload = require('gulp-livereload');
+
 
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
-	return gulp.src('assets/src/sass/main.scss')
+	return gulp.src('source/sass/main.scss')
 	.pipe(sass({
 		style: 'expanded',
 		// sourcemap: true,
-		sourcemapPath: '..src/sass'
+		sourcemapPath: '..source/sass'
 	}))
 	// Prevent sass from stopping on errors
 	.on('error', handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
-	.pipe(gulp.dest('assets/build/css'));
+	.pipe(gulp.dest('build/css'));
 });
 
 // Concatenates all js
 gulp.task('concat', function(){
 	gulp.src([
 		// Load bootstrap js in order
-		'./assets/src/js/plugins/bootstrap/transition.js',
-		'./assets/src/js/plugins/bootstrap/alert.js',
-		'./assets/src/js/plugins/bootstrap/button.js',
-		'./assets/src/js/plugins/bootstrap/carousel.js',
-		'./assets/src/js/plugins/bootstrap/collapse.js',
-		'./assets/src/js/plugins/bootstrap/dropdown.js',
-		'./assets/src/js/plugins/bootstrap/modal.js',
-		'./assets/src/js/plugins/bootstrap/tooltip.js',
-		'./assets/src/js/plugins/bootstrap/popover.js',
-		'./assets/src/js/plugins/bootstrap/scrollspy.js',
-		'./assets/src/js/plugins/bootstrap/tab.js',
-		'./assets/src/js/plugins/bootstrap/affix.js',
+		'./source/js/plugins/bootstrap/transition.js',
+		'./source/js/plugins/bootstrap/alert.js',
+		'./source/js/plugins/bootstrap/button.js',
+		'./source/js/plugins/bootstrap/carousel.js',
+		'./source/js/plugins/bootstrap/collapse.js',
+		'./source/js/plugins/bootstrap/dropdown.js',
+		'./source/js/plugins/bootstrap/modal.js',
+		'./source/js/plugins/bootstrap/tooltip.js',
+		'./source/js/plugins/bootstrap/popover.js',
+		'./source/js/plugins/bootstrap/scrollspy.js',
+		'./source/js/plugins/bootstrap/tab.js',
+		'./source/js/plugins/bootstrap/affix.js',
 		// Any other plugins?
-		'./assets/src/js/plugins/*.js',
+		'./source/js/plugins/*.js',
 		// Load custom js
-		'./assets/src/js/main.js'
+		'./source/js/main.js'
 	])
 	.pipe(concat('all.js'))
-	.pipe(gulp.dest('./assets/build/js/'));
+	.pipe(gulp.dest('./build/js/'));
 });
 
 // Minify js
 gulp.task('uglify', function(){
-	gulp.src('assets/build/js/*.js')
+	gulp.src('build/js/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('assets/build/js'));
+	.pipe(gulp.dest('build/js'));
 });
 
-// Optimize images
-gulp.task('images', function() {
-  var dest = './assets/build/img';
+// File includes
+gulp.task('include', function(){
+	gulp.src('./source/templates/*.html')
+	.pipe(fileinclude())
+	.on('error', handleErrors)
+	.pipe(gulp.dest('./build'))
+	.pipe(livereload());
+});
 
-  return gulp.src('./assets/src/img/**')
-    .pipe(changed(dest)) // Ignore unchanged files
-    .pipe(imagemin()) // Optimize
-    .pipe(gulp.dest(dest));
+// Simple local webserver
+gulp.task('server', function(){
+	gulp.src('build')
+	.pipe(webserver({
+		livereload: true,
+		port:1301
+	}));
 });
 
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass', 'images'], function(){
-	gulp.src('assets/build/js/*.js')
+gulp.task('build', ['concat','sass','include', 'static'], function(){
+	gulp.src('build/js/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('assets/build/js'));
+	.pipe(gulp.dest('build/js'));
 });
 
-// Watch for changes, recompile sass and js
-gulp.task('watch', function(){
-	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
-	gulp.watch('assets/src/js/**/*.js', ['concat']);
-	gulp.watch('assets/src/js/**/*.js', ['vendor']);
+// Move static files only if there are changes
+gulp.task('static', function(){
+	return gulp.src('source/static/**/*')
+	.pipe(changed('build'))
+	// extra pipes can go here if needed
+	.pipe(gulp.dest('build'));
 });
+
+// Watch for changes, recompile, and kick livereload
+gulp.task('watch', ['server'], function(){
+	livereload.listen();
+	gulp.watch('build/**').on('change', livereload.changed);
+	gulp.watch('source/sass/**/*.scss', ['sass']);
+	gulp.watch('source/js/**/*.js', ['concat']);
+	gulp.watch('source/templates/**/*', ['include']);
+	gulp.watch('source/static/**/*', ['static']);
+});
+
+// Build everything and kick off the watch
+gulp.task('default', ['concat', 'sass', 'include', 'static', 'watch']);
 
 // Error function
 function handleErrors(){
