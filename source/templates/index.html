@@ -1,14 +1,10 @@
-@@include('partials/head.html')
+@@include('partials/head.html', {"title": "Home"})
+@@include('partials/nav.html')
 
-<body>
+<div class="container-fluid">
+  <h1><span class="glyphicon glyphicon-star-empty"></span>I'll reload in live time!</h1>
+  <p>Sheer magic.</p>
+  <a href="http://www.github.com/paceco/pi-proto" class="btn btn-primary">I live here, yo.</a>
+</div>
 
-<h1><span class="glyphicon glyphicon-star-empty"></span> Testing this out</h1>
-
-<h2>I'll reload in live time!</h2>
-
-<p>Sheer magic.</p>
-
-@@include('partials/partial.html')
-
-</body>
-</html>
+@@include('partials/footer.html')

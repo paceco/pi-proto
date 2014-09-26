@@ -5,10 +5,11 @@ var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
 var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
+var express    = require('express');
 
 // for prototyping
 var fileinclude = require('gulp-file-include');
-var webserver = require('gulp-webserver');
+// var webserver = require('gulp-webserver');
 var livereload = require('gulp-livereload');
 
 
@@ -70,11 +71,9 @@ gulp.task('include', function(){
 
 // Simple local webserver
 gulp.task('server', function(){
-	gulp.src('build')
-	.pipe(webserver({
-		livereload: true,
-		port:1301
-	}));
+	var app = express();
+	app.use(express.static('build'));
+	app.listen(4000);
 });
 
 // Compiles sass and js, then minifies all js
@@ -94,12 +93,13 @@ gulp.task('static', function(){
 
 // Watch for changes, recompile, and kick livereload
 gulp.task('watch', ['server'], function(){
-	livereload.listen();
-	gulp.watch('build/**').on('change', livereload.changed);
 	gulp.watch('source/sass/**/*.scss', ['sass']);
 	gulp.watch('source/js/**/*.js', ['concat']);
 	gulp.watch('source/templates/**/*', ['include']);
 	gulp.watch('source/static/**/*', ['static']);
+
+	livereload.listen();
+	gulp.watch('build/**').on('change', livereload.changed);
 });
 
 // Build everything and kick off the watch
