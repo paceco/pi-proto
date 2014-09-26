@@ -1,6 +1,6 @@
-# PI Boot + Gulp
+# PI Boot Prototyping
 
-Front-end framework using Gulp to tie everything together.
+PI Boot + Basic imports + LiveReload
 
 ### To install:
 
@@ -16,15 +16,18 @@ Install ruby dependencies (requires bundler gem):
 
     bundle install
 
-Then run gulp as normal:
+Then run the default gulp task:
 
-    gulp [task name here]
+    gulp
 
-### Current Tasks:
+Boom. A static webserver will now show at:
 
-- sass (compiles sass and autoprefixes for browser support)
-- concat (concatenates js)
-- watch (watches src/js/\*js and src/scss/\*scss for changes and then builds
-- uglify (compress js)
-- images (optimizes images)
-- build
+    http://localhost:1301
+    or
+    http://0.0.0.0:1301
+
+### LiveReload
+
+For extra funcionality, download the [LiveReload extension for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en-US) or [for Firefox and other Browsers](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
+
+Once you have the extension, run gulp and load `http://localhost:1301`, then turn the extension on. It will then detect any changes and reload the browser automatically.
