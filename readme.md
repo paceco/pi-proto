@@ -22,9 +22,9 @@ Then run the default gulp task:
 
 Boom. A static webserver will now show at:
 
-    http://localhost:1301
+    http://localhost:4000
     or
-    http://0.0.0.0:1301
+    http://0.0.0.0:4000
 
 ### LiveReload
 
