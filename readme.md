@@ -30,4 +30,4 @@ Boom. A static webserver will now show at:
 
 For extra funcionality, download the [LiveReload extension for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en-US) or [for Firefox and other Browsers](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
 
-Once you have the extension, run gulp and load `http://localhost:1301`, then turn the extension on. It will then detect any changes and reload the browser automatically.
+Once you have the extension, run gulp and load `http://localhost:4000`, then turn the extension on. It will then detect any changes and reload the browser automatically.
