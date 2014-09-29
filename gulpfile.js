@@ -1,6 +1,7 @@
 var gulp       = require('gulp');
 var concat     = require('gulp-concat');
-var sass       = require('gulp-ruby-sass');
+// var sass    = require('gulp-ruby-sass');
+var libsass    = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
 var notify     = require('gulp-notify');
@@ -16,13 +17,12 @@ var livereload = require('gulp-livereload');
 // Compiles sass and autoprefixes
 gulp.task('sass', function () {
 	return gulp.src('source/sass/main.scss')
-	.pipe(sass({
-		style: 'expanded',
-		// sourcemap: true,
-		sourcemapPath: '..source/sass'
+	.pipe(libsass({
+		outputStyle: 'nested', // only supports nested or compressed
+		sourceComments: 'normal',
 	}))
 	// Prevent sass from stopping on errors
-	.on('error', handleErrors)
+	.onError(handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
 	.pipe(gulp.dest('build/css'));
