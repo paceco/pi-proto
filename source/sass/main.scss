@@ -1,7 +1,7 @@
-// framework (Bootstrap 3.2.0)
-// Allows modular sourcing of bootstrap
+// framework (Bootstrap 3.2.0) - modular build
 // @import 'bootstrap/__bootstrap';
-// Use the whole thing with one import for speed
+
+// Bootstrap Precompiled - use for speed and if there are no modifications - do not use this AND the modular bootstrap
 @import 'bootstrap/__precompiled';
 
 // variables, fonts, mixins, helpers... common styles used across the entire site
@@ -11,4 +11,4 @@
 @import 'components/__components';
 
 // declarations specific to the project, organized according to the items/sections represented
-@import 'specifics/__specifics';
+@import 'layouts/__layouts';

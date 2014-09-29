@@ -69,11 +69,17 @@ gulp.task('include', function(){
 	.pipe(livereload());
 });
 
-// Simple local webserver
+// Simple local webserver, using Express because gulp-webserver barfs
 gulp.task('server', function(){
+	// setup server
 	var app = express();
 	app.use(express.static('build'));
 	app.listen(4000);
+	// print message
+	console.log("Server listening at http://0.0.0.0:4000. Attempting to open in default browser...");
+	// attempt to open url, only works on macs currently
+	var spawn = require('child_process').spawn;
+	spawn('open', ['http://0.0.0.0:4000']);
 });
 
 // Compiles sass and js, then minifies all js
