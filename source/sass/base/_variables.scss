@@ -6,7 +6,7 @@
 // Better color defaults: http://clrs.cc/
 // ----------------------------------------------------------------------------
 
-// Cool
+// Colors
 
 $aqua: #7fdbff;
 $blue: #0074d9;
@@ -15,26 +15,17 @@ $teal: #39cccc;
 $green: #2ecc40;
 $olive: #3d9970;
 $lime: #01ff70;
-
-// Warm
-
 $yellow: #ffdc00;
 $orange: #ff851b;
 $red: #ff4136;
 $fuchsia: #f012be;
 $purple: #b10dc9;
 $maroon: #85144b;
-
-// Gray Scale
-
 $white: #fff;
+$off-white: #f7f9fb;
 $silver: #ddd;
 $gray: #aaa;
 $black: #111;
-
-// Extra colors
-
-$off-white: #f7f9fb;
 
 // Color Assignments
 
@@ -42,28 +33,8 @@ $page-bg: $off-white;
 $link-color: $blue;
 $text-color: $black;
 
-// Quick Classes
-
-.navy { color: $navy; }
-.blue { color: $blue; }
-.aqua { color: $aqua; }
-.teal { color: $teal; }
-.olive { color: $olive; }
-.green { color: $green; }
-.lime { color: $lime; }
-.yellow { color: $yellow; }
-.orange { color: $orange; }
-.red { color: $red; }
-.fuchsia { color: $fuchsia; }
-.purple { color: $purple; }
-.maroon { color: $maroon; }
-.white { color: $white; }
-.silver { color: $silver; }
-.gray { color: $gray; }
-.black { color: $black; }
-
-// BREAKPOINTS
-// Match Bootstaps breakpoints
+// BREAKPOINTS - match Bootstaps breakpoints
+// ----------------------------------------------------------------------------
 
 $small-screen: 768px;
 $medium-screen: 992px;

@@ -6,3 +6,24 @@
 			@content;
 		}
 }
+
+// Matches Bootstrap MQ's, 768px+
+@mixin small-screen() {
+		@media screen and (min-width: $small-screen) {
+			@content;
+		}
+}
+
+// Matches Bootstrap MQ's, 992px+
+@mixin medium-screen() {
+		@media screen and (min-width: $medium-screen) {
+			@content;
+		}
+}
+
+// Matches Bootstrap MQ's, 1200px+
+@mixin large-min() {
+		@media screen and (min-width: $large-screen) {
+			@content;
+		}
+}

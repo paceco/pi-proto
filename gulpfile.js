@@ -6,12 +6,12 @@ var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
 var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
-var express    = require('express');
 
 // for prototyping
 var fileinclude = require('gulp-file-include');
 // var webserver = require('gulp-webserver');
 var livereload = require('gulp-livereload');
+var express    = require('express');
 
 
 // Compiles sass and autoprefixes
@@ -19,10 +19,10 @@ gulp.task('sass', function () {
 	return gulp.src('source/sass/main.scss')
 	.pipe(libsass({
 		outputStyle: 'nested', // only supports nested or compressed
-		sourceComments: 'normal',
+		sourceComments: 'normal'
 	}))
+	.on('error', handleErrors)
 	// Prevent sass from stopping on errors
-	.onError(handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
 	.pipe(gulp.dest('build/css'));
@@ -76,10 +76,7 @@ gulp.task('server', function(){
 	app.use(express.static('build'));
 	app.listen(4000);
 	// print message
-	console.log("Server listening at http://0.0.0.0:4000. Attempting to open in default browser...");
-	// attempt to open url, only works on macs currently
-	var spawn = require('child_process').spawn;
-	spawn('open', ['http://0.0.0.0:4000']);
+	console.log("Server listening at http://0.0.0.0:4000.");
 });
 
 // Compiles sass and js, then minifies all js

@@ -1,1 +1,10 @@
 // Rules that are global to the site, things like box sizing, html font size, heading and link defaults, etc.
+
+body {
+  background: $page-bg;
+  color: $text-color;
+}
+
+a {
+  color: $link-color;
+}
