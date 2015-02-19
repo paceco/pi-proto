@@ -28,6 +28,20 @@ gulp.task('sass', function () {
 	.pipe(gulp.dest('build/css'));
 });
 
+// Compiles sass and autoprefixes
+gulp.task('sass-build', function () {
+	return gulp.src('source/sass/main.scss')
+	.pipe(libsass({
+		outputStyle: 'compressed', // only supports nested or compressed
+		sourceComments: 'false'
+	}))
+	.on('error', handleErrors)
+	// Prevent sass from stopping on errors
+	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
+	.pipe(autoprefix())
+	.pipe(gulp.dest('build/css'));
+});
+
 // Concatenates all js
 gulp.task('concat', function(){
 	gulp.src([
@@ -80,7 +94,7 @@ gulp.task('server', function(){
 });
 
 // Compiles sass and js, then minifies all js
-gulp.task('build', ['concat','sass','include', 'static'], function(){
+gulp.task('build', ['concat','sass-build','include', 'static'], function(){
 	gulp.src('build/js/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest('build/js'));
