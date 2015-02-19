@@ -12,3 +12,6 @@
 
 // declarations specific to the project, organized according to the items/sections represented
 @import 'layouts/__layouts';
+
+// third-party css we want to smush into our css - rename to .scss to import
+@import 'vendor/__vendor';

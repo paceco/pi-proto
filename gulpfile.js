@@ -7,11 +7,10 @@ var uglify     = require('gulp-uglify');
 var notify     = require('gulp-notify');
 var changed    = require('gulp-changed');
 
-// for prototyping
+// included for prototyping
 var fileinclude = require('gulp-file-include');
-// var webserver = require('gulp-webserver');
-var livereload = require('gulp-livereload');
-var express    = require('express');
+var livereload  = require('gulp-livereload');
+var express     = require('express');
 
 
 // Compiles sass and autoprefixes
@@ -28,7 +27,7 @@ gulp.task('sass', function () {
 	.pipe(gulp.dest('build/css'));
 });
 
-// Compiles sass and autoprefixes
+// Compiles sass and autoprefixes - compressed for build task
 gulp.task('sass-build', function () {
 	return gulp.src('source/sass/main.scss')
 	.pipe(libsass({
