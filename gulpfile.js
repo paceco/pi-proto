@@ -1,6 +1,5 @@
 var gulp       = require('gulp');
 var concat     = require('gulp-concat');
-// var sass    = require('gulp-ruby-sass');
 var libsass    = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
 var uglify     = require('gulp-uglify');
@@ -13,72 +12,64 @@ var livereload  = require('gulp-livereload');
 var express     = require('express');
 
 
-// Compiles sass and autoprefixes
+// Compile top-level sass and autoprefix that jounce
 gulp.task('sass', function () {
-	return gulp.src('source/sass/main.scss')
+	return gulp.src('assets/src/sass/*.scss')
 	.pipe(libsass({
 		outputStyle: 'nested', // only supports nested or compressed
 		sourceComments: 'normal'
 	}))
-	.on('error', handleErrors)
 	// Prevent sass from stopping on errors
+	.on('error', handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
-	.pipe(gulp.dest('build/css'));
+	.pipe(gulp.dest('assets/build/css'));
 });
 
-// Compiles sass and autoprefixes - compressed for build task
+// Compile top-level sass and compress it like whoa
 gulp.task('sass-build', function () {
-	return gulp.src('source/sass/main.scss')
+	return gulp.src('assets/src/sass/*.scss')
 	.pipe(libsass({
 		outputStyle: 'compressed', // only supports nested or compressed
-		sourceComments: 'false'
 	}))
-	.on('error', handleErrors)
 	// Prevent sass from stopping on errors
+	.on('error', handleErrors)
 	// Autoprefixer defaults to > 1%, last 2 versions, Firefox ESR, Opera 12.1 browser support
 	.pipe(autoprefix())
-	.pipe(gulp.dest('build/css'));
+	.pipe(gulp.dest('assets/build/css'));
 });
 
 // Concatenates all js
 gulp.task('concat', function(){
 	gulp.src([
 		// Load bootstrap js in order
-		'./source/js/plugins/bootstrap/transition.js',
-		'./source/js/plugins/bootstrap/alert.js',
-		'./source/js/plugins/bootstrap/button.js',
-		'./source/js/plugins/bootstrap/carousel.js',
-		'./source/js/plugins/bootstrap/collapse.js',
-		'./source/js/plugins/bootstrap/dropdown.js',
-		'./source/js/plugins/bootstrap/modal.js',
-		'./source/js/plugins/bootstrap/tooltip.js',
-		'./source/js/plugins/bootstrap/popover.js',
-		'./source/js/plugins/bootstrap/scrollspy.js',
-		'./source/js/plugins/bootstrap/tab.js',
-		'./source/js/plugins/bootstrap/affix.js',
+		'./assets/src/js/plugins/bootstrap/transition.js',
+		'./assets/src/js/plugins/bootstrap/alert.js',
+		'./assets/src/js/plugins/bootstrap/button.js',
+		'./assets/src/js/plugins/bootstrap/carousel.js',
+		'./assets/src/js/plugins/bootstrap/collapse.js',
+		'./assets/src/js/plugins/bootstrap/dropdown.js',
+		'./assets/src/js/plugins/bootstrap/modal.js',
+		'./assets/src/js/plugins/bootstrap/tooltip.js',
+		'./assets/src/js/plugins/bootstrap/popover.js',
+		'./assets/src/js/plugins/bootstrap/scrollspy.js',
+		'./assets/src/js/plugins/bootstrap/tab.js',
+		'./assets/src/js/plugins/bootstrap/affix.js',
 		// Any other plugins?
-		'./source/js/plugins/*.js',
+		'./assets/src/js/plugins/*.js',
 		// Load custom js
-		'./source/js/main.js'
+		'./assets/src/js/main.js'
 	])
 	.pipe(concat('all.js'))
-	.pipe(gulp.dest('./build/js/'));
-});
-
-// Minify js
-gulp.task('uglify', function(){
-	gulp.src('build/js/*.js')
-	.pipe(uglify())
-	.pipe(gulp.dest('build/js'));
+	.pipe(gulp.dest('./assets/build/js/'));
 });
 
 // File includes
 gulp.task('include', function(){
-	gulp.src('./source/templates/*.html')
+	gulp.src('./assets/src/templates/*.html')
 	.pipe(fileinclude())
 	.on('error', handleErrors)
-	.pipe(gulp.dest('./build'))
+	.pipe(gulp.dest('./assets/build'))
 	.pipe(livereload());
 });
 
@@ -86,7 +77,7 @@ gulp.task('include', function(){
 gulp.task('server', function(){
 	// setup server
 	var app = express();
-	app.use(express.static('build'));
+	app.use(express.static('assets/build'));
 	app.listen(4000);
 	// print message
 	console.log("Server listening at http://0.0.0.0:4000.");
@@ -94,28 +85,29 @@ gulp.task('server', function(){
 
 // Compiles sass and js, then minifies all js
 gulp.task('build', ['concat','sass-build','include', 'static'], function(){
-	gulp.src('build/js/*.js')
+	gulp.src('assets/build/js/*.js')
 	.pipe(uglify())
-	.pipe(gulp.dest('build/js'));
+	.pipe(gulp.dest('assets/build/js'));
 });
 
 // Move static files only if there are changes
 gulp.task('static', function(){
-	return gulp.src('source/static/**/*')
-	.pipe(changed('build'))
-	// extra pipes can go here if needed
-	.pipe(gulp.dest('build'));
+	return gulp.src('assets/static/**/*')
+	.pipe(changed('assets/build'))
+	// extra pipes can go here if needed, ie image compression
+	.pipe(gulp.dest('assets/build'));
 });
 
 // Watch for changes, recompile, and kick livereload
 gulp.task('watch', ['server'], function(){
-	gulp.watch('source/sass/**/*.scss', ['sass']);
-	gulp.watch('source/js/**/*.js', ['concat']);
-	gulp.watch('source/templates/**/*', ['include']);
-	gulp.watch('source/static/**/*', ['static']);
-
+	gulp.watch('assets/src/sass/**/*.scss', ['sass']);
+	gulp.watch('assets/src/js/**/*.js', ['concat']);
+	gulp.watch('assets/static/**/*', ['static']);
+	gulp.watch('assets/src/templates/**/*', ['include']);
+	
+	// tell livereload something has changed
 	livereload.listen();
-	gulp.watch('build/**').on('change', livereload.changed);
+	gulp.watch('assets/build/**').on('change', livereload.changed);
 });
 
 // Build everything and kick off the watch
