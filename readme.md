@@ -54,6 +54,49 @@ When a prototype is ready to be ported, the `asset` folder can be picked up and 
 
 Easy peasy, right?
 
+## HTML Templating
+
+This toolkit uses the super simple [gulp-file-include](https://www.npmjs.com/package/gulp-file-include) to allow reuse of markup (remember DRY!).
+
+To use add:
+
+```html
+@@include('partials/nav.html')
+```
+
+It will follow that path and expand it when `gulp` runs.
+
+It's also possible to pass strings into the includes:
+
+```html
+@@include('partials/nav.html', {'nameOfVariable': 'nameOfAThing'})
+```
+
+Which you can use in your partial `nav.html`:
+
+```html
+<nav class="@@nameOfVariable">
+  <!-- stuff -->
+</nav>
+```
+
+And when `gulp` runs, it'll become:
+
+```html
+<nav class="nameOfAThing">
+  <!-- stuff -->
+</nav>
+```
+
+You can include as many variables as you'd like:
+
+```html
+@@include('partials/nav.html', {'nameOfVariable': 'nameOfAThing', 'anotherVariable': 'anotherThing'})
+```
+
+
+
+
 ### Extra Credit: LiveReload
 
 For extra funcionality, download the [LiveReload extension for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en-US) or [for Firefox and other Browsers](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
