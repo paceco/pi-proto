@@ -8,3 +8,9 @@ body {
 a {
   color: $link-color;
 }
+
+.btn-primary {
+  background-color: $primary-accent;
+  border-color: darken($primary-accent, 5%);
+  color: $white;
+}

@@ -1,0 +1,18 @@
+// Framework - Bootstrap 3.2.0
+// and any third-party css we want to smush into our css
+// ----------------------------------------------------------------------------
+@import '../vendor/__vendor';
+
+// Variables, fonts, mixins, helpers... common styles used across project
+// ----------------------------------------------------------------------------
+@import 'base/__base';
+
+// Reusable components
+// ----------------------------------------------------------------------------
+@import 'components/__components';
+
+// Declarations specific to the project, 
+// Organized according to the items/sections represented
+// ----------------------------------------------------------------------------
+@import 'layouts/__layouts';
+

@@ -1,0 +1,60 @@
+// Default values, color themes, and configurations
+
+
+// COLORS
+// Color variable recommendation: http://sachagreif.com/sass-color-variables/
+// Better color defaults: http://clrs.cc/
+
+// Most of the colors hexes should be defined here, rather than in the
+// component and layout files so that it's easier to change later (and gives
+// better consistency)
+
+// ----------------------------------------------------------------------------
+
+// Brights
+$aqua: #7fdbff;
+$blue: #0074d9;
+$navy: #001f3f;
+$teal: #39cccc;
+$green: #2ecc40;
+$olive: #3d9970;
+$lime: #01ff70;
+$yellow: #ffdc00;
+$orange: #ff851b;
+$red: #ff4136;
+$fuchsia: #f012be;
+$purple: #b10dc9;
+$maroon: #85144b;
+
+// Neutrals
+$white: #fff;
+$black: #000;
+$off-white: #f7f9fb;
+$silver: #ddd;
+$gray: #aaa;
+$charcoal: #333;
+
+// Color Assignments ---------- //
+
+// The dominant accent color for the project, used in buttons, accents, etc.
+$primary-accent: $blue;
+
+// The secondary accent color, for less critical elements
+$secondary-accent: $green;
+
+// Typography assignments -- add new ones as necessary
+$link-color: $blue;
+$text-color: $charcoal;
+$header-color: $charcoal;
+
+// Layout assigments -- add new ones as necessary
+$page-bg: $off-white;
+
+
+
+// BREAKPOINTS - match Bootstaps breakpoints
+// ----------------------------------------------------------------------------
+
+$small-screen: 768px;
+$medium-screen: 992px;
+$large-screen: 1200px;
