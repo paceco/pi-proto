@@ -146,7 +146,7 @@ gulp.task('watch', ['server'], function(){
 	gulp.watch('assets/source/js/**/*.js', ['concat']);
 	gulp.watch('assets/static/**/*', ['static']);
 	gulp.watch('assets/source/templates/**/*', ['include']);
-	
+
 	// tell livereload something has changed
 	livereload.listen();
 	gulp.watch('assets/build/**').on('change', livereload.changed);
