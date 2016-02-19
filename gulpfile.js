@@ -42,12 +42,10 @@ gulp.task('sass-build', function () {
 	.pipe(gulp.dest('assets/build/css'));
 });
 
-// Top level task to compile both third-party and custom JS
-gulp.task('concat', ['vendor-concat', 'js-concat']);
-
 // Concatenates third-party js
-gulp.task('vendor-concat', function(){
+gulp.task('concat', function(){
 	return gulp.src([
+
 		// Load bootstrap js in order
 		'./assets/source/vendor/bootstrap/js/transition.js',
 		'./assets/source/vendor/bootstrap/js/alert.js',
@@ -66,22 +64,11 @@ gulp.task('vendor-concat', function(){
 		'./assets/source/vendor/flickity/flickity.pkgd.min.js',
 		'./assets/source/vendor/packery.pkgd.min.js',
 
-		// Turn on wildcard selector? Grabs any js file in source/vender
-		// './assets/source/vendor/*.js',
+		// Custom JS
+		'./assets/source/js/main.js',
 	])
-	.pipe(concat('vendor.js'))
+	.pipe(concat('all.js'))
 	.pipe(gulp.dest('./assets/build/js/'));
-});
-
-// Concatenates all custom js
-gulp.task('js-concat', function(){
-    return gulp.src([
-        './assets/source/js/main.js',
-		// Any others? Load here as necessary
-        // './assets/source/js/*.js',
-    ])
-    .pipe(concat('custom.js'))
-    .pipe(gulp.dest('./assets/build/js'));    
 });
 
 
