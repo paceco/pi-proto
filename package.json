@@ -1,5 +1,5 @@
 {
-  "devDependencies": {
+  "dependencies": {
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
