@@ -5,12 +5,21 @@ PI Boot + Basic HTML imports + LiveReload
 ### Dependencies:
 
 - Node 4.2.1
+- Gulp
 
 **(For Node 0.12 and lower, replace the `package.json` with [the older version](https://gist.github.com/nathanlong/1bcd85a4511c25d49f15) to ensure compatibility.)**
 
-### To install:
+### One-line install:
 
-Requires Node and a global install of Gulp.
+	bash -c "$(curl -fsSL raw.github.com/paceco/pi-proto/master/bin/standup.sh)"
+
+This will ask you to name your prototype, then download all the files and node
+modules for you.
+
+### To install manually:
+
+Either download or clone the project (make sure to disconnect the git remote if
+you clone so you don't push up your prototype into this repo.)
 
 Navigate to project and run:
 
