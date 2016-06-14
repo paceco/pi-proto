@@ -146,12 +146,6 @@ This will grab all the fonts you specify and move them into the same location as
 
 The file structure matches pi-boot very closely with the idea that the prototype can be cleaned up and rolled into a production project to keep moving. It uses all the same core css and js processing and tasks as our production projects.
 
-### Migrating to production
-
-When a prototype is ready to be ported, the `asset` folder can be picked up and moved directly into a pi-boot implemenation. Leave behind the `gulpfile.js` (it has extra functions for the static server) and remove the `assets/src/templates` folder.
-
-Easy peasy, right?
-
 ## HTML Templating
 
 This toolkit uses the super simple [gulp-file-include](https://www.npmjs.com/package/gulp-file-include) to allow reuse of markup (remember DRY!).
@@ -213,6 +207,8 @@ things have to happen.
 	- gulp-livereload module
 	- express module
 2. Revert gulpfile.js to match the standard [pi-boot](https://github.com/paceco/pi-boot)
-3. The `assets/souce/template` folder can remain for reference purposes but
+3. Move the entire assets folder into the working level of the project, if
+	 you're not sure where this is, ask a teammate.
+4. The `assets/souce/template` folder can remain for reference purposes but
 	 should ultimately be removed as markup is integrated into the proper
 	 templates.
