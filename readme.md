@@ -2,6 +2,17 @@
 
 PI Boot + Basic HTML imports + LiveReload
 
+This is an addition to the basic [pi-boot](https://github.com/paceco/pi-boot)
+structure to allow for rapid prototyping separate from any development
+environment.
+
+It's most useful for:
+
+- Quickly spinning up the front-end dependencies of a project while the
+	traditional environment is being set up.
+- Quick exploration of a concept with the intention of porting it back into
+	a Pace project.
+
 ### Dependencies:
 
 - Node 4.2.1
@@ -54,15 +65,52 @@ All front-end assets are contained within the `/assets/` folder.
 
 There are three subfolders:
 
-- `/assets/build/` - contains all generated assets, sourcing should happen in this folder.
-- `/assets/source/` - contains all source files for generated assets, all work should happen in this folder
-- `/assets/static/` - contains all non-processed assets (images, fonts, etc)--things you don't want smushed together.
+- `/assets/build/...` 
+	- contains all generated assets, sourcing should happen in this folder.
+- `/assets/source/...` 
+	- contains all source files for generated assets, all work should happen in
+		this folder
+- `/assets/static/...`
+	- contains all non-processed assets (images, fonts, etc)--things you don't
+		want smushed together.
+	- this also is where critical js that must load in the head should be placed
 
 The `source` folder, where all the work happens, is also split into three subfolders
 
-- `/assets/source/js` - all custom javascript.
-- `/assets/source/sass` - all custom SASS styles.
-- `/assets/source/vendor` - all third-party js, css, and sass.
+- `/assets/source/js/...` 
+	- all custom javascript.
+- `/assets/source/sass/...` 
+	- all custom SASS styles.
+- `/assets/source/vendor/...` 
+	- all third-party js, css, and sass.
+
+
+### SASS Structure
+
+We currently follow a loose interpretation of OOCSS (Object Oriented CSS) with
+some structure cues from [DOCSSA](http://docssa.info/) and
+[SMACSS](https://smacss.com/).
+
+There are three hierarchical structures:
+
+1. **Base**
+	- Contains rules, variables, mixins used throughout the project
+2. **Components**
+	- Borrowed from DoCCSa, but much simpler in scope. These are intended to be
+		reusable and extendable pieces of code that could be used in a completely
+		different project. Basically these will be our 'solved' design patterns.
+	- Typically, new rules should not go in here, only reusable patterns that have
+		evolved fron the 'layouts' folder.
+3. **Layouts**
+	- This is the common working area for a project. All new rules go into
+		'layouts' first.
+	- These are organized by specific views first (homepage, article, etc) and as
+		patterns emerge they will be separated into separate components to be used
+		across different sections of the site.
+
+For each section there is a double-underscore master file that collects the
+imports for everything in it's grouping (all 'components' are sourced in
+`__components.scss`).
 
 
 ### Installing new plugins
@@ -151,3 +199,20 @@ You can include as many variables as you'd like:
 For extra funcionality, download the [LiveReload extension for Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en-US) or [for Firefox and other Browsers](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
 
 Once you have the extension, run gulp and load `http://localhost:4000`, then turn the extension on. It will then detect any changes and reload the browser automatically when it detects anything in the `assets/build` folder has been updated.
+
+----
+
+### Migration to a Live Project
+
+This kit is meant to be disposable and not intended for any production work.
+Once the prototype has matured enough to be integrated into a live project a few
+things have to happen.
+
+1. Turn off the additional modules sourced in package.json:
+	- gulp-file-include module
+	- gulp-livereload module
+	- express module
+2. Revert gulpfile.js to match the standard [pi-boot](https://github.com/paceco/pi-boot)
+3. The `assets/souce/template` folder can remain for reference purposes but
+	 should ultimately be removed as markup is integrated into the proper
+	 templates.

@@ -56,6 +56,7 @@ grabfiles(){
     e_header "Installing all things node for you..."
     cd ./$TARGET_DIRECTORY && npm install
     e_success "NPM modules installed."
+    cd $TARGET_DIRECTORY
     e_success "Prototype \"$TARGET_DIRECTORY\" ready to go! Happy coding"
     printf "(Remember, you must cd into your new prototype and run \"gulp\" to start the servers and watch process...)"
   else
